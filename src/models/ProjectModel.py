@@ -8,7 +8,7 @@ class ProjectModel(BaseDataModel):
         self.collection = self.db_client[DataBaseEnum.COLLLECTION_PROJECT_NAME.value]
     
     @classmethod
-    async def creare_instance(cls, db_client: object):
+    async def create_instance(cls, db_client: object):
         instance = cls(db_client)
         await instance.init_collection()
         return instance
@@ -28,7 +28,7 @@ class ProjectModel(BaseDataModel):
         
     async def create_project(self, project: Project):
         resulte = await self.collection.insert_one(project.dict(by_alias=True, exclude_unset=True))
-        project._id = resulte.inserted_id
+        project.id = resulte.inserted_id
         
         return project
     
